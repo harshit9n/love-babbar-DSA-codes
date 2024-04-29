@@ -1,0 +1,35 @@
+#include<iostream>
+#include<set>
+using namespace std;
+
+int generate(int n,string str, set<string>& unique)
+{
+    int count=0;
+    if(n==0)
+    {
+        unique.insert(str);
+        return 1;
+    }
+    else
+    {
+        char lastchar = str.empty() ? ' ' : str.back();
+        for(char vowel : {'a','e','i','o','u'})
+        {
+            if(vowel >= lastchar)
+            {
+                string newstring = str+vowel;
+                count+=generate(n-1,newstring,unique);
+            }
+        }
+    }
+    return count;
+}
+
+int main()
+{
+    int n;
+    cin>>n;
+    set<string> unique;
+    cout<<generate(n,"",unique);
+    return 0;
+}
